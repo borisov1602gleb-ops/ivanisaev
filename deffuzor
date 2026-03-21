@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Премиальные интерьерные ароматы</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Иконки Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Шрифт Inter (похож на Apple San Francisco) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        apple: {
+                            bg: '#fbfbfd',      // Фирменный светлый фон
+                            card: '#f5f5f7',    // Фон карточек
+                            text: '#1d1d1f',    // Основной текст (не чисто черный)
+                            muted: '#86868b',   // Вторичный текст
+                            accent: '#0071e3',  // Акцентный синий (опционально, для ссылок)
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #fbfbfd;
+            color: #1d1d1f;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Эффект матового стекла для навигации */
+        .glass-nav {
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+
+        /* Плавные анимации появления при скролле (Apple style) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Стили карточек товаров */
+        .product-card {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+
+        .product-img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        /* Скрытие скроллбара для горизонтального скролла на мобильных */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="selection:bg-apple-text selection:text-white">
+
+    <!-- Навигация -->
+    <header class="fixed top-0 w-full z-50 glass-nav border-b border-gray-200/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between text-xs font-medium tracking-wide text-apple-text/80">
+            <a href="#" class="text-xl font-semibold tracking-tighter text-apple-text flex items-center gap-1">
+                <i class="ph-fill ph-wind text-2xl"></i> AURA
+            </a>
+            
+            <nav class="hidden md:flex space-x-10">
+                <a href="#about" class="hover:text-apple-text transition-colors">О нас</a>
+                <a href="#catalog" class="hover:text-apple-text transition-colors">Коллекция</a>
+                <a href="#ingredients" class="hover:text-apple-text transition-colors">Ингредиенты</a>
+                <a href="#contacts" class="hover:text-apple-text transition-colors">Где купить</a>
+            </nav>
+
+            <a href="#contacts" class="bg-apple-text text-white px-4 py-1.5 rounded-full hover:bg-black transition-colors">
+                Связаться
+            </a>
+        </div>
+    </header>
+
+    <!-- Главный экран (Hero) -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-32 px-6 text-center max-w-5xl mx-auto flex flex-col items-center justify-center min-h-[90vh]">
+        <h2 class="text-apple-muted font-medium tracking-widest uppercase text-xs mb-4 reveal">Новая коллекция 2026</h2>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-tight mb-6 reveal" style="transition-delay: 0.1s;">
+            Дыхание вашего<br>пространства.
+        </h1>
+        <p class="text-xl md:text-2xl text-apple-muted font-light max-w-2xl mx-auto mb-10 reveal" style="transition-delay: 0.2s;">
+            Премиальные ароматические диффузоры, созданные из редких эфирных масел. Превратите свой дом в место абсолютной гармонии.
+        </p>
+        <div class="reveal" style="transition-delay: 0.3s;">
+            <img src="https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=2000&auto=format&fit=crop" 
+                 alt="Aura Diffuser" 
+                 class="w-full h-[50vh] md:h-[60vh] object-cover rounded-[2rem] shadow-2xl shadow-black/5">
+        </div>
+    </section>
+
+    <!-- Информационный блок -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1 reveal">
+                    <h3 class="text-3xl md:text-5xl font-semibold tracking-tight mb-6 leading-tight">Искусство невидимого.</h3>
+                    <p class="text-lg text-apple-muted mb-6 leading-relaxed">
+                        Мы верим, что аромат — это самый тонкий элемент дизайна интерьера. Он не бросается в глаза, но моментально меняет восприятие пространства, создавая настроение и пробуждая воспоминания.
+                    </p>
+                    <p class="text-lg text-apple-muted leading-relaxed">
+                        Наши диффузоры работают до 6 месяцев, равномерно отдавая аромат благодаря инновационным фибровым палочкам, которые не нужно переворачивать.
+                    </p>
+                </div>
+                <div class="order-1 md:order-2 reveal">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1602928321679-560bb453f190?q=80&w=800&auto=format&fit=crop" alt="Details" class="rounded-3xl w-full h-64 object-cover">
+                        <img src="https://images.unsplash.com/photo-1595425970377-c9703bc48b2d?q=80&w=800&auto=format&fit=crop" alt="Details" class="rounded-3xl w-full h-64 object-cover mt-8">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог (Основа сайта) -->
+    <section id="catalog" class="py-32 max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20 reveal">
+            <h2 class="text-4xl md:text-6xl font-semibold tracking-tight mb-4">Коллекция ароматов.</h2>
+            <p class="text-xl text-apple-muted">Найдите тот самый оттенок для вашего дома.</p>
+        </div>
+
+        <!-- Сетка товаров -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Товар 1 -->
+            <div class="product-card bg-apple-card rounded-[2rem] p-8 flex flex-col h-[500px] cursor-pointer reveal">
+                <div class="text-center mb-6 z-10">
+                    <h3 class="text-2xl font-semibold tracking-tight mb-1">Santal & Vetiver</h3>
+                    <p class="text-apple-muted text-sm">Древесный • Глубокий • Теплый</p>
+                </div>
+                <div class="flex-grow flex items-center justify-center overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=800&auto=format&fit=crop" 
+                         alt="Santal Diffuser" 
+                         class="product-img w-48 h-64 object-cover rounded-xl shadow-lg mix-blend-multiply">
+                </div>
+                <div class="mt-6 flex justify-between items-center z-10">
+                    <span class="font-medium text-lg">4 500 ₽</span>
+                    <span class="text-apple-accent text-sm font-medium hover:underline">Подробнее <i class="ph-bold ph-caret-right inline-block translate-y-[2px]"></i></span>
+                </div>
+            </div>
+
+            <!-- Товар 2 -->
+            <div class="product-card bg-apple-card rounded-[2rem] p-8 flex flex-col h-[500px] cursor-pointer reveal" style="transition-delay: 0.1s;">
+                <div class="text-center mb-6 z-10">
+                    <h3 class="text-2xl font-semibold tracking-tight mb-1">White Tea & Fig</h3>
+                    <p class="text-apple-muted text-sm">Свежий • Тонкий • Цветочный</p>
+                </div>
+                <div class="flex-grow flex items-center justify-center overflow-hidden">
+                    <!-- Используем CSS-фильтр чтобы убрать белый фон у картинок и органично вписать в серую карточку -->
+                    <img src="https://images.unsplash.com/photo-1595425970377-c9703bc48b2d?q=80&w=800&auto=format&fit=crop" 
+                         alt="White Tea Diffuser" 
+                         class="product-img w-48 h-64 object-cover rounded-xl shadow-lg mix-blend-multiply">
+                </div>
+                <div class="mt-6 flex justify-between items-center z-10">
+                    <span class="font-medium text-lg">4 500 ₽</span>
+                    <span class="text-apple-accent text-sm font-medium hover:underline">Подробнее <i class="ph-bold ph-caret-right inline-block translate-y-[2px]"></i></span>
+                </div>
+            </div>
+
+            <!-- Товар 3 -->
+            <div class="product-card bg-[#1d1d1f] text-white rounded-[2rem] p-8 flex flex-col h-[500px] cursor-pointer reveal" style="transition-delay: 0.2s;">
+                <div class="text-center mb-6 z-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#d4af37] mb-2 block">Premium Edition</span>
+                    <h3 class="text-2xl font-semibold tracking-tight mb-1">Black Amber</h3>
+                    <p class="text-gray-400 text-sm">Кожа • Табак • Амбра</p>
+                </div>
+                <div class="flex-grow flex items-center justify-center overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=800&auto=format&fit=crop" 
+                         alt="Amber Diffuser" 
+                         class="product-img w-48 h-64 object-cover rounded-xl shadow-2xl opacity-90">
+                </div>
+                <div class="mt-6 flex justify-between items-center z-10">
+                    <span class="font-medium text-lg">6 900 ₽</span>
+                    <span class="text-white text-sm font-medium hover:underline">Подробнее <i class="ph-bold ph-caret-right inline-block translate-y-[2px]"></i></span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Особенности / Ингредиенты (Горизонтальный скролл) -->
+    <section id="ingredients" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-12 reveal">
+            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Бескомпромиссное качество.</h2>
+        </div>
+        
+        <div class="flex overflow-x-auto gap-6 px-6 pb-12 snap-x hide-scrollbar max-w-7xl mx-auto reveal">
+            
+            <div class="min-w-[300px] md:min-w-[400px] bg-apple-card p-8 rounded-3xl snap-start">
+                <i class="ph-thin ph-drop text-4xl text-apple-text mb-4"></i>
+                <h4 class="text-xl font-semibold mb-2">Натуральные масла</h4>
+                <p class="text-apple-muted text-sm leading-relaxed">Мы не используем синтетические отдушки. Только эфирные масла из Грасса (Франция), родины мировой парфюмерии.</p>
+            </div>
+
+            <div class="min-w-[300px] md:min-w-[400px] bg-apple-card p-8 rounded-3xl snap-start">
+                <i class="ph-thin ph-plant text-4xl text-apple-text mb-4"></i>
+                <h4 class="text-xl font-semibold mb-2">Безопасная база</h4>
+                <p class="text-apple-muted text-sm leading-relaxed">Основа диффузора — экологичный японский растворитель на глицериновой основе. Не содержит спирта и не вызывает аллергии.</p>
+            </div>
+
+            <div class="min-w-[300px] md:min-w-[400px] bg-apple-card p-8 rounded-3xl snap-start">
+                <i class="ph-thin ph-magic-wand text-4xl text-apple-text mb-4"></i>
+                <h4 class="text-xl font-semibold mb-2">Фибровые палочки</h4>
+                <p class="text-apple-muted text-sm leading-relaxed">Инновационная структура микропор позволяет аромату подниматься равномерно, без необходимости постоянно переворачивать палочки.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Контакты и Где купить -->
+    <section id="contacts" class="py-32 bg-apple-bg">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="bg-[#1d1d1f] text-white rounded-[3rem] p-10 md:p-20 relative overflow-hidden reveal">
+                <!-- Фоновый декоративный круг -->
+                <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+                    <div>
+                        <h2 class="text-4xl md:text-6xl font-semibold tracking-tight mb-6">Готовы преобразить свой интерьер?</h2>
+                        <p class="text-gray-400 text-lg mb-10 max-w-md">
+                            Наши диффузоры представлены в фирменном шоуруме, а также доступны для заказа с курьерской доставкой по всей стране.
+                        </p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                                    <i class="ph-fill ph-map-pin text-xl"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-lg">Шоурум AURA</h5>
+                                    <p class="text-gray-400">г. Москва, ул. Большая Дмитровка, 15<br>Ежедневно с 10:00 до 22:00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                                    <i class="ph-fill ph-phone text-xl"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-lg">Телефон для заказа</h5>
+                                    <p class="text-gray-400">+7 (495) 123-45-67</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                                    <i class="ph-fill ph-telegram-logo text-xl"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-lg">Мессенджеры</h5>
+                                    <a href="#" class="text-apple-accent hover:underline">Написать в Telegram</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Визуализация или карта (в данном случае заглушка в виде стильной картинки интерьера) -->
+                    <div class="h-full min-h-[300px] rounded-3xl overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Interior" 
+                             class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-6 left-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl flex items-center justify-between">
+                            <span class="font-medium text-sm">Открыть карту</span>
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-apple-muted font-medium">
+            <p>&copy; 2026 AURA Interiors. Все права защищены.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-apple-text transition-colors">Политика конфиденциальности</a>
+                <a href="#" class="hover:text-apple-text transition-colors">Условия возврата</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипт для плавной анимации появления элементов -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Настройка Intersection Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Элемент начнет появляться, когда 15% его площади будет видно
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Добавляем класс active для запуска CSS-транзиции
+                        entry.target.classList.add('active');
+                        // Прекращаем наблюдение после первого появления (чтобы анимация не повторялась туда-сюда)
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Находим все элементы с классом reveal и начинаем за ними следить
+            document.querySelectorAll('.reveal').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>
