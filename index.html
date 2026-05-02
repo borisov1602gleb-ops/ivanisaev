@@ -1,351 +1,967 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | Премиальные интерьерные ароматы</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Иконки Phosphor -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- Шрифт Inter (похож на Apple San Francisco) -->
+    <meta name="description" content="Онлайн-школа Екатерины Каликиной. Индивидуальные занятия с лучшими репетиторами и подготовка к ОГЭ на высокий балл.">
+    <title>Главная | Школа Екатерины Каликиной</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        apple: {
-                            bg: '#fbfbfd',      // Фирменный светлый фон
-                            card: '#f5f5f7',    // Фон карточек
-                            text: '#1d1d1f',    // Основной текст (не чисто черный)
-                            muted: '#86868b',   // Вторичный текст
-                            accent: '#0071e3',  // Акцентный синий (опционально, для ссылок)
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+          /* Color Palette - Refined Tech Warmth */
+          --color-primary: #2D5BE3;
+          --color-primary-light: #EEF2FF;
+          --color-accent: #F97316;
+          --color-bg: #FAFAF8;
+          --color-surface: #FFFFFF;
+          --color-text-primary: #18181B;
+          --color-text-secondary: #71717A;
+          --color-border: #E4E4E7;
+          --color-success: #16A34A;
+          
+          /* Soft Volume Shadows */
+          --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+          --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 8px 24px rgba(0,0,0,0.04);
+          --shadow-lg: 0 10px 25px rgba(0,0,0,0.05), 0 12px 36px rgba(0,0,0,0.03);
+          --shadow-hover: 0 15px 35px rgba(45, 91, 227, 0.08), 0 5px 15px rgba(0,0,0,0.04);
+          
+          /* Radii */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-pill: 9999px;
+          
+          /* Transitions */
+          --transition-fast: 0.2s ease;
+          --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* ================= RESET & BASE ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
         body {
-            background-color: #fbfbfd;
-            color: #1d1d1f;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
+          font-family: 'Manrope', sans-serif;
+          background-color: var(--color-bg);
+          color: var(--color-text-primary);
+          line-height: 1.6;
+          overflow-x: hidden;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
         }
-
-        /* Эффект матового стекла для навигации */
-        .glass-nav {
-            background: rgba(251, 251, 253, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-        }
-
-        /* Плавные анимации появления при скролле (Apple style) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
+        main { flex: 1; }
+        
+        h1, h2, h3, h4 { 
+          font-family: 'Playfair Display', serif; 
+          font-weight: 600; 
+          line-height: 1.2; 
+          color: var(--color-text-primary); 
         }
         
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Стили карточек товаров */
-        .product-card {
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        h1 { font-size: clamp(2.25rem, 5vw, 4rem); margin-bottom: 1rem; }
+        h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+        h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin-bottom: 0.75rem; }
+        p { color: var(--color-text-secondary); margin-bottom: 1rem; }
+        a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
+        button { border: none; background: none; cursor: pointer; font-family: inherit; transition: var(--transition-fast); }
+        ul { list-style: none; }
+        img, svg { max-width: 100%; display: block; }
+        
+        /* ================= TYPOGRAPHY & UTILITIES ================= */
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .text-primary { color: var(--color-primary); }
+        .text-accent { color: var(--color-accent); }
+        .fw-light { font-weight: 300; }
+        .fw-bold { font-weight: 700; }
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-muted { color: var(--color-text-secondary); }
+        
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .section { padding: 4rem 0; }
+        @media (min-width: 768px) { .section { padding: 6rem 0; } }
+        
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-2 { gap: 0.5rem; } .gap-4 { gap: 1rem; } .gap-6 { gap: 1.5rem; } .gap-8 { gap: 2rem; }
+        
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        @media (min-width: 768px) {
+          .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+          .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+          .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
         }
         
-        .product-card:hover {
-            transform: scale(1.02);
+        .mt-2 { margin-top: 0.5rem; } .mt-4 { margin-top: 1rem; } .mt-8 { margin-top: 2rem; } .mt-12 { margin-top: 3rem; }
+        .mb-2 { margin-bottom: 0.5rem; } .mb-4 { margin-bottom: 1rem; } .mb-8 { margin-bottom: 2rem; }
+        .w-full { width: 100%; }
+        
+        /* ================= COMPONENTS ================= */
+        
+        /* Buttons */
+        .btn {
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 14px 28px; border-radius: var(--radius-md); font-weight: 600; font-size: 15px;
+          text-align: center; gap: 8px;
         }
-
-        .product-img {
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .btn-primary { background: var(--color-primary); color: white; }
+        .btn-primary:hover, .btn-primary:focus-visible { background: #1D4ED8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45, 91, 227, 0.3); outline: none; }
+        .btn-secondary { background: transparent; border: 1.5px solid var(--color-primary); color: var(--color-primary); }
+        .btn-secondary:hover, .btn-secondary:focus-visible { background: var(--color-primary-light); transform: translateY(-2px); outline: none; }
+        .btn-accent { background: var(--color-accent); color: white; }
+        .btn-accent:hover, .btn-accent:focus-visible { background: #EA580C; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3); outline: none; }
+        
+        /* Badges / Pills */
+        .badge {
+          padding: 4px 12px; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 700;
+          background: var(--color-primary-light); color: var(--color-primary); display: inline-flex; align-items: center; gap: 4px; width: fit-content;
+        }
+        .badge.success { background: #DCFCE7; color: var(--color-success); }
+        .badge.accent { background: #FFEDD5; color: var(--color-accent); }
+        
+        /* Glassmorphism */
+        .glass {
+          background: rgba(255, 255, 255, 0.7);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.4);
         }
         
-        .product-card:hover .product-img {
-            transform: scale(1.05);
+        /* Cards & Soft Volume */
+        .card {
+          background: var(--color-surface); border-radius: var(--radius-lg); padding: 2rem;
+          box-shadow: var(--shadow-sm); border: 1px solid var(--color-border);
+          transition: var(--transition-base); height: 100%; display: flex; flex-direction: column;
         }
-
-        /* Скрытие скроллбара для горизонтального скролла на мобильных */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: rgba(45, 91, 227, 0.2); }
+        
+        /* Avatar Placeholders */
+        .avatar-placeholder {
+          border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+          font-weight: 700; background: var(--color-primary-light); color: var(--color-primary);
+          border: 2px solid white; box-shadow: var(--shadow-sm); flex-shrink: 0;
         }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .avatar-sm { width: 40px; height: 40px; font-size: 14px; }
+        .avatar-md { width: 64px; height: 64px; font-size: 20px; }
+        .avatar-lg { width: 100px; height: 100px; font-size: 32px; }
+        
+        /* Header & Nav */
+        .header {
+          position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+          background: rgba(250, 250, 248, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+          border-bottom: 1px solid transparent; transition: var(--transition-base);
+        }
+        .header.scrolled { border-bottom-color: var(--color-border); box-shadow: var(--shadow-sm); background: rgba(255, 255, 255, 0.95); }
+        .header-inner { height: 80px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--color-primary); }
+        
+        .nav-links { display: none; gap: 2rem; align-items: center; }
+        @media (min-width: 992px) {
+          .nav-links { display: flex; }
+          .mobile-toggle { display: none; }
+        }
+        .nav-links a { font-weight: 500; color: var(--color-text-primary); }
+        .nav-links a:hover { color: var(--color-primary); }
+        
+        /* Mobile Menu */
+        .mobile-toggle { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; z-index: 1001; }
+        .mobile-toggle svg { width: 24px; height: 24px; }
+        .mobile-menu {
+          position: fixed; top: 0; right: -100%; width: 80%; max-width: 400px; height: 100vh;
+          background: var(--color-surface); box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+          z-index: 1000; transition: right var(--transition-slow); padding: 6rem 2rem 2rem; 
+          display: flex; flex-direction: column; gap: 2rem; overflow-y: auto;
+        }
+        .mobile-menu.open { right: 0; }
+        .mobile-menu a { font-size: 1.25rem; font-weight: 600; border-bottom: 1px solid var(--color-border); padding-bottom: 1rem; }
+        .overlay {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 999;
+          opacity: 0; visibility: hidden; transition: var(--transition-base);
+        }
+        .overlay.open { opacity: 1; visibility: visible; }
+        
+        /* Hero Section */
+        .hero {
+          padding: 10rem 0 6rem; position: relative; overflow: hidden;
+          background: radial-gradient(circle at top right, rgba(238, 242, 255, 0.8) 0%, transparent 50%),
+                      radial-gradient(circle at bottom left, rgba(249, 115, 22, 0.05) 0%, transparent 40%);
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; text-align: center; }
+        .hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; opacity: 0.4; }
+        .hero-blob-1 { top: 5%; right: -5%; width: 400px; height: 400px; background: var(--color-primary-light); }
+        .hero-blob-2 { bottom: 10%; left: -10%; width: 300px; height: 300px; background: #FFEDD5; }
+        
+        /* Stats Row */
+        .stats-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem; }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--color-primary); font-family: 'Playfair Display', serif; }
+        .stat-label { font-size: 0.875rem; color: var(--color-text-secondary); font-weight: 500; }
+        
+        /* Timeline / Steps */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--color-border); }
+        .timeline-item { position: relative; padding-bottom: 2rem; }
+        .timeline-item::before {
+          content: ''; position: absolute; left: -2rem; top: 6px; width: 16px; height: 16px;
+          border-radius: 50%; background: var(--color-primary); border: 4px solid var(--color-primary-light);
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item:last-child::before { background: var(--color-success); border-color: #DCFCE7; }
+        
+        /* FAQ Accordion */
+        .faq-item { border-bottom: 1px solid var(--color-border); }
+        .faq-btn { width: 100%; text-align: left; padding: 1.5rem 0; font-size: 1.125rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--color-text-primary); }
+        .faq-btn:focus-visible { outline: 2px solid var(--color-primary); border-radius: 4px; }
+        .faq-icon { transition: transform 0.3s ease; color: var(--color-primary); font-size: 1.5rem; line-height: 1; }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); }
+        .faq-item.active .faq-content { max-height: 1000px; transition: max-height 0.4s ease-in-out; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+        .faq-inner { padding-bottom: 1.5rem; color: var(--color-text-secondary); }
+        
+        /* Filters (Tutors page) */
+        .filters-bar { padding: 1.5rem; border-radius: var(--radius-lg); margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-end; }
+        .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .filter-label { font-weight: 600; font-size: 0.875rem; }
+        .pill-checkbox { display: none; }
+        .pill-label {
+          display: inline-block; padding: 8px 16px; border-radius: var(--radius-pill); border: 1px solid var(--color-border);
+          font-size: 0.875rem; cursor: pointer; transition: var(--transition-fast); margin: 0 4px 4px 0; background: var(--color-surface);
+        }
+        .pill-checkbox:checked + .pill-label { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+        
+        /* Slider */
+        .slider-container { position: relative; overflow: hidden; padding: 1rem 0; touch-action: pan-y; }
+        .slider-track { display: flex; transition: transform var(--transition-slow); gap: 1.5rem; cursor: grab; }
+        .slider-track:active { cursor: grabbing; }
+        .slider-item { min-width: 100%; flex-shrink: 0; }
+        @media (min-width: 768px) { .slider-item { min-width: calc(50% - 0.75rem); } }
+        @media (min-width: 1024px) { .slider-item { min-width: calc(33.333% - 1rem); } }
+        .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 2rem; }
+        .slider-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color-border); cursor: pointer; transition: 0.2s; }
+        .slider-dot.active { background: var(--color-primary); transform: scale(1.2); }
+        
+        /* Schedule Grid (Mock) */
+        .schedule-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; overflow-x: auto; padding-bottom: 1rem; }
+        .schedule-day { font-size: 0.75rem; font-weight: 700; color: var(--color-text-secondary); margin-bottom: 8px; }
+        .schedule-slot { padding: 8px 4px; border-radius: 6px; font-size: 0.8rem; background: var(--color-bg); border: 1px solid var(--color-border); cursor: not-allowed; opacity: 0.5; }
+        .schedule-slot.free { background: #DCFCE7; color: var(--color-success); border-color: #BBF7D0; cursor: pointer; opacity: 1; transition: var(--transition-fast); }
+        .schedule-slot.free:hover { transform: scale(1.05); box-shadow: var(--shadow-sm); }
+        
+        /* Forms */
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-text-primary); }
+        .form-control {
+          width: 100%; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+          font-family: inherit; font-size: 1rem; transition: var(--transition-fast); outline: none; background: var(--color-bg);
+        }
+        .form-control:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(45, 91, 227, 0.1); background: white; }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+        
+        /* Modal */
+        .modal {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          z-index: 2000; display: flex; align-items: center; justify-content: center;
+          opacity: 0; visibility: hidden; transition: var(--transition-base); padding: 1rem;
+        }
+        .modal.open { opacity: 1; visibility: visible; }
+        .modal-backdrop { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+        .modal-content {
+          background: var(--color-surface); width: 100%; max-width: 500px; border-radius: var(--radius-lg);
+          position: relative; z-index: 2001; padding: 2.5rem; transform: scale(0.95); transition: var(--transition-base);
+          box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto;
+        }
+        .modal.open .modal-content { transform: scale(1); }
+        .modal-close { 
+          position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; 
+          display: flex; align-items: center; justify-content: center; font-size: 1.5rem; 
+          color: var(--color-text-secondary); transition: 0.2s; border-radius: 50%;
+        }
+        .modal-close:hover, .modal-close:focus-visible { color: var(--color-text-primary); background: var(--color-bg); outline: none; }
+        
+        /* Footer */
+        .footer { background: #0F172A; color: white; padding: 4rem 0 2rem; margin-top: auto; }
+        .footer a { color: #94A3B8; transition: color 0.2s; }
+        .footer a:hover, .footer a:focus-visible { color: white; outline: none; text-decoration: underline; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+        .footer-bottom { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #1E293B; text-align: center; color: #64748B; font-size: 0.875rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; }
+        .social-icon:hover { background: var(--color-primary); }
+        
+        /* Animations */
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Sticky Mobile CTA */
+        .mobile-sticky-cta { display: none; }
+        @media (max-width: 767px) {
+          .mobile-sticky-cta {
+            display: block; position: fixed; bottom: 0; left: 0; width: 100%; padding: 1rem;
+            background: var(--color-surface); box-shadow: 0 -4px 15px rgba(0,0,0,0.05); z-index: 90;
+          }
+          body { padding-bottom: 80px; }
+        }
+        
+        /* SPA Page Transitions */
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="selection:bg-apple-text selection:text-white">
+<body>
 
-    <!-- Навигация -->
-    <header class="fixed top-0 w-full z-50 glass-nav border-b border-gray-200/50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between text-xs font-medium tracking-wide text-apple-text/80">
-            <a href="#" class="text-xl font-semibold tracking-tighter text-apple-text flex items-center gap-1">
-                <i class="ph-fill ph-wind text-2xl"></i> AURA
-            </a>
-            
-            <nav class="hidden md:flex space-x-10">
-                <a href="#about" class="hover:text-apple-text transition-colors">О нас</a>
-                <a href="#catalog" class="hover:text-apple-text transition-colors">Коллекция</a>
-                <a href="#ingredients" class="hover:text-apple-text transition-colors">Ингредиенты</a>
-                <a href="#contacts" class="hover:text-apple-text transition-colors">Где купить</a>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#home" class="logo">Школа Каликиной</a>
+            <nav class="nav-links">
+                <a href="#home">Главная</a>
+                <a href="#tutors">Репетиторы</a>
+                <a href="#oge">Подготовка к ОГЭ</a>
+                <a href="#about">О школе</a>
+                <a href="#contacts">Контакты</a>
+                <button class="btn btn-accent" data-modal="booking-modal">Записаться</button>
             </nav>
-
-            <a href="#contacts" class="bg-apple-text text-white px-4 py-1.5 rounded-full hover:bg-black transition-colors">
-                Связаться
-            </a>
+            <button class="mobile-toggle" aria-label="Открыть меню" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
         </div>
     </header>
 
-    <!-- Главный экран (Hero) -->
-    <section class="pt-32 pb-20 md:pt-40 md:pb-32 px-6 text-center max-w-5xl mx-auto flex flex-col items-center justify-center min-h-[90vh]">
-        <h2 class="text-apple-muted font-medium tracking-widest uppercase text-xs mb-4 reveal">Новая коллекция 2026</h2>
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-tight mb-6 reveal" style="transition-delay: 0.1s;">
-            Дыхание вашего<br>пространства.
-        </h1>
-        <p class="text-xl md:text-2xl text-apple-muted font-light max-w-2xl mx-auto mb-10 reveal" style="transition-delay: 0.2s;">
-            Премиальные ароматические диффузоры, созданные из редких эфирных масел. Превратите свой дом в место абсолютной гармонии.
-        </p>
-        <div class="reveal" style="transition-delay: 0.3s;">
-            <img src="https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=2000&auto=format&fit=crop" 
-                 alt="Aura Diffuser" 
-                 class="w-full h-[50vh] md:h-[60vh] object-cover rounded-[2rem] shadow-2xl shadow-black/5">
-        </div>
-    </section>
+    <!-- MOBILE MENU -->
+    <div class="overlay"></div>
+    <nav class="mobile-menu">
+        <a href="#home">Главная</a>
+        <a href="#tutors">Репетиторы</a>
+        <a href="#oge">Подготовка к ОГЭ</a>
+        <a href="#about">О школе</a>
+        <a href="#contacts">Контакты</a>
+        <button class="btn btn-accent w-full mt-4" data-modal="booking-modal">Записаться</button>
+    </nav>
 
-    <!-- Информационный блок -->
-    <section id="about" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="order-2 md:order-1 reveal">
-                    <h3 class="text-3xl md:text-5xl font-semibold tracking-tight mb-6 leading-tight">Искусство невидимого.</h3>
-                    <p class="text-lg text-apple-muted mb-6 leading-relaxed">
-                        Мы верим, что аромат — это самый тонкий элемент дизайна интерьера. Он не бросается в глаза, но моментально меняет восприятие пространства, создавая настроение и пробуждая воспоминания.
-                    </p>
-                    <p class="text-lg text-apple-muted leading-relaxed">
-                        Наши диффузоры работают до 6 месяцев, равномерно отдавая аромат благодаря инновационным фибровым палочкам, которые не нужно переворачивать.
-                    </p>
+    <main id="app">
+        <!-- PAGE: HOME -->
+        <div id="home" class="page">
+            <section class="hero">
+            <div class="hero-blob hero-blob-1"></div>
+            <div class="hero-blob hero-blob-2"></div>
+            <div class="container hero-content animate-on-scroll">
+                <div class="badge mb-4">🏆 Набор на 2025/2026 учебный год</div>
+                <h1>Подготовка к <span class="fw-bold text-primary">ОГЭ</span> и занятия с лучшими репетиторами</h1>
+                <p class="text-muted mb-8" style="font-size: 1.125rem;">Онлайн-школа Екатерины Каликиной — индивидуальный подход, который гарантирует уверенность и результат на экзамене.</p>
+                <div class="flex justify-center gap-4 flex-wrap">
+                        <a href="#tutors" class="btn btn-primary">Выбрать репетитора</a>
+                        <a href="#oge" class="btn btn-secondary">Узнать о курсах</a>
                 </div>
-                <div class="order-1 md:order-2 reveal">
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="https://images.unsplash.com/photo-1602928321679-560bb453f190?q=80&w=800&auto=format&fit=crop" alt="Details" class="rounded-3xl w-full h-64 object-cover">
-                        <img src="https://images.unsplash.com/photo-1595425970377-c9703bc48b2d?q=80&w=800&auto=format&fit=crop" alt="Details" class="rounded-3xl w-full h-64 object-cover mt-8">
+                
+                <div class="stats-row animate-on-scroll">
+                    <div class="stat-item glass card" style="padding: 1.5rem;">
+                        <div class="stat-number"><span class="counter" data-target="150">0</span>+</div>
+                        <div class="stat-label">Учеников онлайн</div>
+                    </div>
+                    <div class="stat-item glass card" style="padding: 1.5rem;">
+                        <div class="stat-number"><span class="counter" data-target="4.9">0</span></div>
+                        <div class="stat-label">Средний балл ОГЭ</div>
+                    </div>
+                    <div class="stat-item glass card" style="padding: 1.5rem;">
+                        <div class="stat-number"><span class="counter" data-target="87">0</span>%</div>
+                        <div class="stat-label">Сдают на 4 и 5</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Каталог (Основа сайта) -->
-    <section id="catalog" class="py-32 max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20 reveal">
-            <h2 class="text-4xl md:text-6xl font-semibold tracking-tight mb-4">Коллекция ароматов.</h2>
-            <p class="text-xl text-apple-muted">Найдите тот самый оттенок для вашего дома.</p>
-        </div>
-
-        <!-- Сетка товаров -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Товар 1 -->
-            <div class="product-card bg-apple-card rounded-[2rem] p-8 flex flex-col h-[500px] cursor-pointer reveal">
-                <div class="text-center mb-6 z-10">
-                    <h3 class="text-2xl font-semibold tracking-tight mb-1">Santal & Vetiver</h3>
-                    <p class="text-apple-muted text-sm">Древесный • Глубокий • Теплый</p>
-                </div>
-                <div class="flex-grow flex items-center justify-center overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=800&auto=format&fit=crop" 
-                         alt="Santal Diffuser" 
-                         class="product-img w-48 h-64 object-cover rounded-xl shadow-lg mix-blend-multiply">
-                </div>
-                <div class="mt-6 flex justify-between items-center z-10">
-                    <span class="font-medium text-lg">4 500 ₽</span>
-                    <span class="text-apple-accent text-sm font-medium hover:underline">Подробнее <i class="ph-bold ph-caret-right inline-block translate-y-[2px]"></i></span>
+            <section class="section bg-surface">
+            <div class="container">
+                <h2 class="text-center animate-on-scroll mb-8">Почему выбирают нас</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card animate-on-scroll">
+                        <div class="avatar-placeholder avatar-sm mb-4">👨‍🏫</div>
+                        <h3 class="text-sm">Опытные репетиторы</h3>
+                        <p class="text-sm text-muted">Каждый преподаватель прошёл строгий многоэтапный отбор и доказал квалификацию.</p>
+                    </div>
+                    <div class="card animate-on-scroll">
+                        <div class="avatar-placeholder avatar-sm mb-4">🎯</div>
+                        <h3 class="text-sm">Точечно к ОГЭ</h3>
+                        <p class="text-sm text-muted">Программы составлены с учётом структуры экзамена и кодификатора ФИПИ.</p>
+                    </div>
+                    <div class="card animate-on-scroll">
+                        <div class="avatar-placeholder avatar-sm mb-4">🕒</div>
+                        <h3 class="text-sm">Гибкое расписание</h3>
+                        <p class="text-sm text-muted">Подбираем удобные дни и часы занятий, чтобы не перегружать школьника.</p>
+                    </div>
+                    <div class="card animate-on-scroll">
+                        <div class="avatar-placeholder avatar-sm mb-4">💻</div>
+                        <h3 class="text-sm">Удобный онлайн</h3>
+                        <p class="text-sm text-muted">Интерактивные доски, качественная связь — учитесь из любой точки мира.</p>
+                    </div>
                 </div>
             </div>
+            </section>
 
-            <!-- Товар 2 -->
-            <div class="product-card bg-apple-card rounded-[2rem] p-8 flex flex-col h-[500px] cursor-pointer reveal" style="transition-delay: 0.1s;">
-                <div class="text-center mb-6 z-10">
-                    <h3 class="text-2xl font-semibold tracking-tight mb-1">White Tea & Fig</h3>
-                    <p class="text-apple-muted text-sm">Свежий • Тонкий • Цветочный</p>
-                </div>
-                <div class="flex-grow flex items-center justify-center overflow-hidden">
-                    <!-- Используем CSS-фильтр чтобы убрать белый фон у картинок и органично вписать в серую карточку -->
-                    <img src="https://images.unsplash.com/photo-1595425970377-c9703bc48b2d?q=80&w=800&auto=format&fit=crop" 
-                         alt="White Tea Diffuser" 
-                         class="product-img w-48 h-64 object-cover rounded-xl shadow-lg mix-blend-multiply">
-                </div>
-                <div class="mt-6 flex justify-between items-center z-10">
-                    <span class="font-medium text-lg">4 500 ₽</span>
-                    <span class="text-apple-accent text-sm font-medium hover:underline">Подробнее <i class="ph-bold ph-caret-right inline-block translate-y-[2px]"></i></span>
+            <section class="section">
+            <div class="container">
+                <h2 class="text-center animate-on-scroll mb-8">Наши направления</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card animate-on-scroll" style="border-top: 4px solid var(--color-primary);">
+                        <h3>Подготовка к ОГЭ</h3>
+                        <p>Комплексная программа для учеников 8-9 классов. Разбираем всю теорию и отрабатываем на реальных вариантах.</p>
+                        <div class="flex flex-wrap gap-2 mb-6 mt-4">
+                            <span class="badge">Математика</span> <span class="badge">Русский язык</span> <span class="badge">Физика</span>
+                        </div>
+                        <a href="#oge" class="btn btn-secondary mt-auto w-full">Подробнее о курсах</a>
+                    </div>
+                    <div class="card animate-on-scroll" style="border-top: 4px solid var(--color-accent);">
+                        <h3>Индивидуальные занятия</h3>
+                        <p>Поможем подтянуть оценки, восполнить пробелы по школьной программе или подготовиться к олимпиадам.</p>
+                        <div class="flex flex-wrap gap-2 mb-6 mt-4">
+                            <span class="badge accent">Для любых классов</span> <span class="badge accent">Устранение пробелов</span>
+                        </div>
+                        <a href="#tutors" class="btn btn-secondary mt-auto w-full">Найти репетитора</a>
+                    </div>
                 </div>
             </div>
+            </section>
 
-            <!-- Товар 3 -->
-            <div class="product-card bg-[#1d1d1f] text-white rounded-[2rem] p-8 flex flex-col h-[500px] cursor-pointer reveal" style="transition-delay: 0.2s;">
-                <div class="text-center mb-6 z-10">
-                    <span class="text-xs font-bold uppercase tracking-widest text-[#d4af37] mb-2 block">Premium Edition</span>
-                    <h3 class="text-2xl font-semibold tracking-tight mb-1">Black Amber</h3>
-                    <p class="text-gray-400 text-sm">Кожа • Табак • Амбра</p>
+            <section class="section bg-surface">
+            <div class="container">
+                <div class="flex justify-between items-center mb-8 animate-on-scroll">
+                    <h2>Наши репетиторы</h2>
+                    <a href="#tutors" class="text-primary fw-bold hidden md:block">Смотреть всех →</a>
                 </div>
-                <div class="flex-grow flex items-center justify-center overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=800&auto=format&fit=crop" 
-                         alt="Amber Diffuser" 
-                         class="product-img w-48 h-64 object-cover rounded-xl shadow-2xl opacity-90">
-                </div>
-                <div class="mt-6 flex justify-between items-center z-10">
-                    <span class="font-medium text-lg">6 900 ₽</span>
-                    <span class="text-white text-sm font-medium hover:underline">Подробнее <i class="ph-bold ph-caret-right inline-block translate-y-[2px]"></i></span>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Tutor Card -->
+                    <div class="card tutor-card animate-on-scroll">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="avatar-placeholder avatar-md">АИ</div>
+                            <div>
+                                <h4 class="mb-0">Алексей Иванов</h4>
+                                <span class="text-muted text-sm">Математика, Физика</span>
+                            </div>
+                        </div>
+                        <p class="text-sm">Эксперт ОГЭ. Помогу полюбить точные науки и сдать экзамен без стресса.</p>
+                        <div class="mt-auto pt-4 flex justify-between items-center border-t border-border">
+                            <span class="text-success fw-bold text-sm">★ 4.9</span>
+                            <a href="#tutor-detail" class="text-primary text-sm fw-bold">Профиль</a>
+                        </div>
+                    </div>
+                    <div class="card tutor-card animate-on-scroll">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="avatar-placeholder avatar-md" style="background:#FFE4E6">ЕС</div>
+                            <div>
+                                <h4 class="mb-0">Елена Смирнова</h4>
+                                <span class="text-muted text-sm">Русский язык, Литература</span>
+                            </div>
+                        </div>
+                        <p class="text-sm">Учу писать грамотно и формулировать мысли. Авторская методика запоминания правил.</p>
+                        <div class="mt-auto pt-4 flex justify-between items-center border-t border-border">
+                            <span class="text-success fw-bold text-sm">★ 5.0</span>
+                            <a href="#tutor-detail" class="text-primary text-sm fw-bold">Профиль</a>
+                        </div>
+                    </div>
+                    <div class="card tutor-card animate-on-scroll">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="avatar-placeholder avatar-md" style="background:#DCFCE7">МП</div>
+                            <div>
+                                <h4 class="mb-0">Максим Попов</h4>
+                                <span class="text-muted text-sm">История, Обществознание</span>
+                            </div>
+                        </div>
+                        <p class="text-sm">Понятно и интересно рассказываю о сложных исторических процессах.</p>
+                        <div class="mt-auto pt-4 flex justify-between items-center border-t border-border">
+                            <span class="text-success fw-bold text-sm">★ 4.8</span>
+                            <a href="#tutor-detail" class="text-primary text-sm fw-bold">Профиль</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            </section>
 
-        </div>
-    </section>
+            <section class="section">
+            <div class="container" style="max-width: 800px;">
+                <h2 class="text-center animate-on-scroll mb-8">Частые вопросы</h2>
+                <div class="animate-on-scroll">
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">Как проходят онлайн-занятия? <span class="faq-icon">+</span></button>
+                        <div class="faq-content"><div class="faq-inner">Занятия проходят на интерактивной платформе с использованием видеосвязи. Репетитор и ученик видят друг друга, могут вместе писать на виртуальной доске и разбирать материалы.</div></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">Можно ли сменить репетитора? <span class="faq-icon">+</span></button>
+                        <div class="faq-content"><div class="faq-inner">Да, если вам по какой-то причине не подошёл преподаватель, мы оперативно и бесплатно подберём другого специалиста.</div></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">Есть ли пробное занятие? <span class="faq-icon">+</span></button>
+                        <div class="faq-content"><div class="faq-inner">Конечно. Первое диагностическое занятие проводится со скидкой. На нём репетитор оценивает уровень ученика и составляет план.</div></div>
+                    </div>
+                </div>
+            </div>
+            </section>
 
-    <!-- Особенности / Ингредиенты (Горизонтальный скролл) -->
-    <section id="ingredients" class="py-24 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 mb-12 reveal">
-            <h2 class="text-3xl md:text-5xl font-semibold tracking-tight">Бескомпромиссное качество.</h2>
+            <section class="section" style="background: var(--color-primary); color: white;">
+            <div class="container">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="animate-on-scroll">
+                        <h2 style="color: white;">Готовы начать подготовку?</h2>
+                        <p style="color: var(--color-primary-light);">Оставьте заявку, и наш методист перезвонит вам в течение 30 минут в рабочее время, чтобы подобрать лучшего репетитора.</p>
+                    </div>
+                    <div class="card animate-on-scroll" style="color: var(--color-text-primary);">
+                        <form>
+                            <div class="form-group"><label class="form-label">Ваше имя</label><input type="text" class="form-control" required placeholder="Анна"></div>
+                            <div class="form-group"><label class="form-label">Номер телефона</label><input type="tel" class="form-control" required placeholder="+7 (999) 000-00-00"></div>
+                            <div class="form-group">
+                                <label class="form-label">Направление</label>
+                                <select class="form-control"><option>Подготовка к ОГЭ</option><option>Индивидуальные занятия</option></select>
+                            </div>
+                            <button type="submit" class="btn btn-accent w-full">Оставить заявку</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </section>
         </div>
+
+        <!-- PAGE: TUTORS -->
+        <div id="tutors" class="page">
+            <div style="padding-top: 80px;">
+                <section class="section">
+                    <div class="container">
+                        <h1 class="animate-on-scroll">Наши репетиторы</h1>
+                        <p class="animate-on-scroll mb-8">Найдите идеального преподавателя для достижения ваших учебных целей.</p>
         
-        <div class="flex overflow-x-auto gap-6 px-6 pb-12 snap-x hide-scrollbar max-w-7xl mx-auto reveal">
-            
-            <div class="min-w-[300px] md:min-w-[400px] bg-apple-card p-8 rounded-3xl snap-start">
-                <i class="ph-thin ph-drop text-4xl text-apple-text mb-4"></i>
-                <h4 class="text-xl font-semibold mb-2">Натуральные масла</h4>
-                <p class="text-apple-muted text-sm leading-relaxed">Мы не используем синтетические отдушки. Только эфирные масла из Грасса (Франция), родины мировой парфюмерии.</p>
-            </div>
-
-            <div class="min-w-[300px] md:min-w-[400px] bg-apple-card p-8 rounded-3xl snap-start">
-                <i class="ph-thin ph-plant text-4xl text-apple-text mb-4"></i>
-                <h4 class="text-xl font-semibold mb-2">Безопасная база</h4>
-                <p class="text-apple-muted text-sm leading-relaxed">Основа диффузора — экологичный японский растворитель на глицериновой основе. Не содержит спирта и не вызывает аллергии.</p>
-            </div>
-
-            <div class="min-w-[300px] md:min-w-[400px] bg-apple-card p-8 rounded-3xl snap-start">
-                <i class="ph-thin ph-magic-wand text-4xl text-apple-text mb-4"></i>
-                <h4 class="text-xl font-semibold mb-2">Фибровые палочки</h4>
-                <p class="text-apple-muted text-sm leading-relaxed">Инновационная структура микропор позволяет аромату подниматься равномерно, без необходимости постоянно переворачивать палочки.</p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Контакты и Где купить -->
-    <section id="contacts" class="py-32 bg-apple-bg">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="bg-[#1d1d1f] text-white rounded-[3rem] p-10 md:p-20 relative overflow-hidden reveal">
-                <!-- Фоновый декоративный круг -->
-                <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
-                    <div>
-                        <h2 class="text-4xl md:text-6xl font-semibold tracking-tight mb-6">Готовы преобразить свой интерьер?</h2>
-                        <p class="text-gray-400 text-lg mb-10 max-w-md">
-                            Наши диффузоры представлены в фирменном шоуруме, а также доступны для заказа с курьерской доставкой по всей стране.
-                        </p>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                    <i class="ph-fill ph-map-pin text-xl"></i>
+                        <div class="filters-bar animate-on-scroll glass">
+                            <div class="filter-group">
+                                <span class="filter-label">Предмет</span>
+                                <div class="flex flex-wrap">
+                                    <label><input type="checkbox" name="subject" value="math" class="pill-checkbox"><span class="pill-label">Математика</span></label>
+                                    <label><input type="checkbox" name="subject" value="russian" class="pill-checkbox"><span class="pill-label">Русский язык</span></label>
+                                    <label><input type="checkbox" name="subject" value="physics" class="pill-checkbox"><span class="pill-label">Физика</span></label>
+                                    <label><input type="checkbox" name="subject" value="history" class="pill-checkbox"><span class="pill-label">История</span></label>
                                 </div>
-                                <div>
-                                    <h5 class="font-medium text-lg">Шоурум AURA</h5>
-                                    <p class="text-gray-400">г. Москва, ул. Большая Дмитровка, 15<br>Ежедневно с 10:00 до 22:00</p>
+                            </div>
+                            <button id="reset-filters" class="text-sm text-muted" style="text-decoration: underline;">Сбросить фильтры</button>
+                        </div>
+        
+                        <div class="mb-4 text-sm fw-bold text-primary" id="results-count">Найдено 9 репетиторов</div>
+        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="card tutor-card animate-on-scroll" data-subjects="math,physics">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="avatar-placeholder avatar-md">АИ</div>
+                                    <div>
+                                        <h4 class="mb-0">Алексей Иванов</h4>
+                                        <span class="text-muted text-sm">Математика, Физика</span>
+                                    </div>
                                 </div>
+                                <div class="flex items-center gap-2 mb-2 text-sm"><span class="text-success fw-bold">★ 4.9</span> <span class="text-muted">• Опыт 5 лет</span></div>
+                                <div class="fw-bold text-sm mb-4">от 800 ₽/час</div>
+                                <p class="text-sm">Эксперт ОГЭ. Помогу полюбить точные науки и сдать экзамен без стресса.</p>
+                                <div class="mt-auto flex gap-2 pt-4">
+                                    <a href="#tutor-detail" class="btn btn-secondary w-full text-sm" style="padding:8px">Подробнее</a>
+                                    <button class="btn btn-primary w-full text-sm" style="padding:8px" data-modal="booking-modal">Запись</button>
+                                </div>
+                            </div>
+        
+                            <div class="card tutor-card animate-on-scroll" data-subjects="russian">
+                                <div class="flex items-center gap-4 mb-4"><div class="avatar-placeholder avatar-md" style="background:#FFE4E6">ЕС</div><div><h4 class="mb-0">Елена Смирнова</h4><span class="text-muted text-sm">Русский язык</span></div></div>
+                                <div class="flex items-center gap-2 mb-2 text-sm"><span class="text-success fw-bold">★ 5.0</span> <span class="text-muted">• Опыт 8 лет</span></div><div class="fw-bold text-sm mb-4">от 1000 ₽/час</div>
+                                <p class="text-sm">Учу писать грамотно и формулировать мысли. Авторская методика запоминания правил.</p>
+                                <div class="mt-auto flex gap-2 pt-4"><a href="#tutor-detail" class="btn btn-secondary w-full text-sm" style="padding:8px">Подробнее</a><button class="btn btn-primary w-full text-sm" style="padding:8px" data-modal="booking-modal">Запись</button></div>
                             </div>
                             
-                            <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                    <i class="ph-fill ph-phone text-xl"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-medium text-lg">Телефон для заказа</h5>
-                                    <p class="text-gray-400">+7 (495) 123-45-67</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                    <i class="ph-fill ph-telegram-logo text-xl"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-medium text-lg">Мессенджеры</h5>
-                                    <a href="#" class="text-apple-accent hover:underline">Написать в Telegram</a>
-                                </div>
+                            <div class="card tutor-card animate-on-scroll" data-subjects="history">
+                                <div class="flex items-center gap-4 mb-4"><div class="avatar-placeholder avatar-md" style="background:#DCFCE7">МП</div><div><h4 class="mb-0">Максим Попов</h4><span class="text-muted text-sm">История</span></div></div>
+                                <div class="flex items-center gap-2 mb-2 text-sm"><span class="text-success fw-bold">★ 4.8</span> <span class="text-muted">• Опыт 3 года</span></div><div class="fw-bold text-sm mb-4">от 700 ₽/час</div>
+                                <p class="text-sm">Понятно и интересно рассказываю о сложных исторических процессах.</p>
+                                <div class="mt-auto flex gap-2 pt-4"><a href="#tutor-detail" class="btn btn-secondary w-full text-sm" style="padding:8px">Подробнее</a><button class="btn btn-primary w-full text-sm" style="padding:8px" data-modal="booking-modal">Запись</button></div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Визуализация или карта (в данном случае заглушка в виде стильной картинки интерьера) -->
-                    <div class="h-full min-h-[300px] rounded-3xl overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=1000&auto=format&fit=crop" 
-                             alt="Interior" 
-                             class="absolute inset-0 w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/20"></div>
-                        <div class="absolute bottom-6 left-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl flex items-center justify-between">
-                            <span class="font-medium text-sm">Открыть карту</span>
-                            <i class="ph-bold ph-arrow-up-right"></i>
-                        </div>
-                    </div>
-                </div>
+                </section>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-12">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-apple-muted font-medium">
-            <p>&copy; 2026 AURA Interiors. Все права защищены.</p>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-apple-text transition-colors">Политика конфиденциальности</a>
-                <a href="#" class="hover:text-apple-text transition-colors">Условия возврата</a>
+        <!-- PAGE: TUTOR DETAIL -->
+        <div id="tutor-detail" class="page">
+            <div style="padding-top: 80px;">
+                <section class="section">
+                    <div class="container">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="card text-center animate-on-scroll">
+                                <div class="avatar-placeholder avatar-lg mx-auto mb-4" style="margin: 0 auto;">АИ</div>
+                                <h2>Алексей Иванов</h2>
+                                <p class="text-primary fw-bold">Математика, Физика</p>
+                                <div class="flex justify-center gap-4 mb-4">
+                                    <div><div class="fw-bold text-success">★ 4.9</div><div class="text-sm text-muted">24 отзыва</div></div>
+                                    <div><div class="fw-bold">5 лет</div><div class="text-sm text-muted">Опыт</div></div>
+                                </div>
+                                <div class="fw-bold text-lg mb-6">800 ₽ / 60 мин</div>
+                                <button class="btn btn-accent w-full" data-modal="booking-modal">Записаться на занятие</button>
+                            </div>
+                            <div class="md:col-span-2 animate-on-scroll">
+                                <div class="card mb-6">
+                                    <h3>О репетиторе</h3>
+                                    <p>Привет! Меня зовут Алексей, я выпускник МГУ им. Ломоносова (механико-математический факультет). Последние 5 лет я помогаю школьникам перестать бояться математику и физику. Моя цель — не просто натаскать на тесты, а показать красоту предмета.</p>
+                                    <h4 class="mt-8 mb-4">Образование</h4>
+                                    <ul style="list-style-type: disc; padding-left: 1.5rem; color: var(--color-text-secondary);">
+                                        <li>МГУ им. Ломоносова, мехмат (Бакалавриат)</li>
+                                        <li>Повышение квалификации «Эксперт ОГЭ по математике» (2024)</li>
+                                    </ul>
+                                    <h4 class="mt-8 mb-4">Чему научу</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Алгебра с нуля</span>
+                                        <span class="badge">Геометрия (планиметрия)</span>
+                                        <span class="badge">Подготовка к ОГЭ</span>
+                                        <span class="badge">Разбор олимпиад</span>
+                                    </div>
+                                </div>
+                                <div class="card mb-6">
+                                    <h3>Свободное время</h3>
+                                    <p class="text-sm mb-4">Выберите удобный слот (время московское).</p>
+                                    <div class="schedule-grid">
+                                        <div><div class="schedule-day">Пн</div><div class="schedule-slot free" data-modal="booking-modal">15:00</div><div class="schedule-slot mt-2">16:00</div></div>
+                                        <div><div class="schedule-day">Вт</div><div class="schedule-slot mt-2">10:00</div></div>
+                                        <div><div class="schedule-day">Ср</div><div class="schedule-slot free" data-modal="booking-modal">18:00</div></div>
+                                        <div><div class="schedule-day">Чт</div><div class="schedule-slot mt-2">14:00</div></div>
+                                        <div><div class="schedule-day">Пт</div><div class="schedule-slot free" data-modal="booking-modal">17:00</div></div>
+                                        <div><div class="schedule-day">Сб</div><div class="schedule-slot mt-2">12:00</div></div>
+                                        <div><div class="schedule-day">Вс</div><div class="schedule-slot mt-2">Вых</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
+        </div>
+
+        <!-- PAGE: OGE -->
+        <div id="oge" class="page">
+            <div style="padding-top: 80px;">
+                <section class="hero" style="padding: 6rem 0;">
+                    <div class="container text-center animate-on-scroll">
+                        <h1>Подготовка к <span class="fw-bold text-primary">ОГЭ</span> онлайн</h1>
+                        <p class="text-muted mx-auto" style="max-width: 600px; font-size:1.125rem;">Готовим по 8 школьным предметам. От диагностики знаний до финальных пробников.</p>
+                        <a href="#tutors" class="btn btn-accent mt-4">Подобрать репетитора</a>
+                    </div>
+                </section>
+                <section class="section bg-surface">
+                    <div class="container">
+                        <h2 class="text-center mb-8 animate-on-scroll">Как проходит подготовка</h2>
+                        <div class="timeline" style="max-width: 600px; margin: 0 auto;">
+                            <div class="timeline-item animate-on-scroll"><h4>Диагностика уровня</h4><p class="text-sm">Проводим бесплатное тестирование для определения текущих знаний.</p></div>
+                            <div class="timeline-item animate-on-scroll"><h4>Составление плана</h4><p class="text-sm">Разрабатываем индивидуальный маршрут подготовки по кодификатору.</p></div>
+                            <div class="timeline-item animate-on-scroll"><h4>Изучение и практика</h4><p class="text-sm">Разбираем теорию и решаем задания из реальных вариантов экзамена.</p></div>
+                            <div class="timeline-item animate-on-scroll"><h4>Пробный экзамен</h4><p class="text-sm">Пишем итоговые пробники на время, чтобы снять стресс перед ОГЭ.</p></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="container">
+                        <h2 class="text-center mb-8 animate-on-scroll">Сроки подготовки</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="card text-center animate-on-scroll">
+                                <h3>Экспресс</h3><div class="badge mb-4">3 месяца</div>
+                                <p class="text-sm">Интенсив для тех, у кого уже есть база. Фокус на сложных заданиях 2-й части.</p>
+                                <button class="btn btn-secondary w-full mt-auto" data-modal="booking-modal">Записаться</button>
+                            </div>
+                            <div class="card text-center animate-on-scroll" style="border-color: var(--color-primary); transform: scale(1.05); box-shadow: var(--shadow-hover);">
+                                <h3>Стандарт</h3><div class="badge mb-4">6 месяцев</div>
+                                <p class="text-sm">Оптимальный курс для большинства. Спокойная отработка всех тем и вариантов.</p>
+                                <button class="btn btn-primary w-full mt-auto" data-modal="booking-modal">Записаться</button>
+                            </div>
+                            <div class="card text-center animate-on-scroll">
+                                <h3>С нуля</h3><div class="badge mb-4">9 месяцев</div>
+                                <p class="text-sm">Фундаментальная подготовка. Закрываем пробелы за все предыдущие классы.</p>
+                                <button class="btn btn-secondary w-full mt-auto" data-modal="booking-modal">Записаться</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- PAGE: ABOUT -->
+        <div id="about" class="page">
+            <div style="padding-top: 80px;">
+                <section class="hero" style="padding: 10rem 0 6rem; text-align: center;">
+                    <div class="container animate-on-scroll">
+                        <h1>О школе <span class="text-primary">Екатерины Каликиной</span></h1>
+                        <p class="text-muted mx-auto" style="max-width: 600px; font-size: 1.125rem;">Мы верим, что каждый ученик способен сдать экзамен на отлично — нужен лишь правильный наставник и системный подход.</p>
+                    </div>
+                </section>
+                <section class="section bg-surface">
+                    <div class="container">
+                        <h2 class="text-center animate-on-scroll mb-8">Наша миссия и команда</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="card text-center animate-on-scroll">
+                                <div class="avatar-placeholder avatar-lg mx-auto mb-4">ЕК</div>
+                                <h3>Екатерина Каликина</h3>
+                                <p class="text-sm text-primary fw-bold">Основатель, методист</p>
+                                <p class="text-sm text-muted">Разрабатывает учебные программы и контролирует качество занятий.</p>
+                            </div>
+                            <div class="card text-center animate-on-scroll">
+                                <div class="avatar-placeholder avatar-lg mx-auto mb-4" style="background:#FFE4E6">ОС</div>
+                                <h3>Ольга Соколова</h3>
+                                <p class="text-sm text-primary fw-bold">Руководитель отдела ОГЭ</p>
+                                <p class="text-sm text-muted">Отвечает за актуальность материалов и пробные тестирования.</p>
+                            </div>
+                            <div class="card text-center animate-on-scroll">
+                                <div class="avatar-placeholder avatar-lg mx-auto mb-4" style="background:#DCFCE7">АМ</div>
+                                <h3>Анна Морозова</h3>
+                                <p class="text-sm text-primary fw-bold">HR-менеджер</p>
+                                <p class="text-sm text-muted">Проводит строгий отбор репетиторов в нашу команду.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- PAGE: CONTACTS -->
+        <div id="contacts" class="page">
+            <div style="padding-top: 80px;">
+                <section class="hero" style="padding: 10rem 0 6rem; text-align: center;">
+                    <div class="container animate-on-scroll">
+                        <h1>Свяжитесь с <span class="text-primary">нами</span></h1>
+                        <p class="text-muted mx-auto" style="max-width: 600px; font-size: 1.125rem;">Ответим на любые вопросы и поможем с выбором репетитора.</p>
+                    </div>
+                </section>
+                <section class="section">
+                    <div class="container">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="card animate-on-scroll">
+                                <h3>Контакты</h3>
+                                <p class="mb-4"><strong>Email:</strong> hello@kalikina.school</p>
+                                <p class="mb-4"><strong>Телефон:</strong> +7 (999) 123-45-67</p>
+                                <p class="mb-4"><strong>Режим работы:</strong> Пн–Пт 9:00–21:00, Сб–Вс 10:00–18:00</p>
+                                <p class="text-sm text-muted mt-4">Отвечаем в рабочие часы — в течение 30 минут, в остальное время — до следующего рабочего дня.</p>
+                                <div class="flex gap-4 mt-8">
+                                    <a href="#" class="btn btn-secondary">Telegram</a>
+                                    <a href="#" class="btn btn-secondary">WhatsApp</a>
+                                </div>
+                            </div>
+                            <div class="card animate-on-scroll">
+                                <h3>Написать нам</h3>
+                                <form>
+                                    <div class="form-group"><label class="form-label">Имя</label><input type="text" class="form-control" required></div>
+                                    <div class="form-group"><label class="form-label">Телефон или Email</label><input type="text" class="form-control" required></div>
+                                    <div class="form-group"><label class="form-label">Сообщение</label><textarea class="form-control" required></textarea></div>
+                                    <button type="submit" class="btn btn-primary w-full">Отправить</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 style="color: white; margin-bottom: 1rem;">Школа Каликиной</h3>
+                    <p style="color: #94A3B8;">Сделаем подготовку к экзаменам понятной, а результат — предсказуемым.</p>
+                </div>
+                <div><h4 style="color: white;">Школа</h4><ul class="flex flex-col gap-2 mt-4"><li><a href="#about">О нас</a></li><li><a href="#tutors">Репетиторы</a></li><li><a href="#oge">Подготовка к ОГЭ</a></li></ul></div>
+                <div><h4 style="color: white;">Предметы</h4><ul class="flex flex-col gap-2 mt-4"><li><a href="#">Математика</a></li><li><a href="#">Русский язык</a></li><li><a href="#">Физика</a></li></ul></div>
+                <div><h4 style="color: white;">Контакты</h4><ul class="flex flex-col gap-2 mt-4"><li><a href="#contacts">Связаться с нами</a></li><li><a href="#">Telegram</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+            </div>
+            <div class="footer-bottom">© 2026 Школа Екатерины Каликиной. Все права защищены.</div>
         </div>
     </footer>
 
-    <!-- Скрипт для плавной анимации появления элементов -->
+    <!-- MODAL (UI Only) -->
+    <div class="modal" id="booking-modal" role="dialog" aria-modal="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Закрыть">×</button>
+            <h3>Запись на занятие</h3>
+            <p class="text-sm">Оставьте контактные данные, и мы свяжемся для уточнения деталей.</p>
+            <form class="mt-4">
+                <div class="form-group"><label class="form-label">Имя</label><input type="text" class="form-control" required></div>
+                <div class="form-group"><label class="form-label">Телефон</label><input type="tel" class="form-control" required></div>
+                <div class="form-group"><label class="form-label">Предмет</label><select class="form-control"><option>Математика</option><option>Русский язык</option></select></div>
+                <button type="submit" class="btn btn-primary w-full">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Настройка Intersection Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15 // Элемент начнет появляться, когда 15% его площади будет видно
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
+            /* --- Scroll & Counter Observers --- */
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            let scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, i) => {
                     if (entry.isIntersecting) {
-                        // Добавляем класс active для запуска CSS-транзиции
-                        entry.target.classList.add('active');
-                        // Прекращаем наблюдение после первого появления (чтобы анимация не повторялась туда-сюда)
-                        observer.unobserve(entry.target);
+                        setTimeout(() => { entry.target.classList.add('visible'); }, (i % 4) * 80);
+                        scrollObserver.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
-
-            // Находим все элементы с классом reveal и начинаем за ними следить
-            document.querySelectorAll('.reveal').forEach((el) => {
-                observer.observe(el);
+    
+            const countUp = (element, target, duration) => {
+                let start = 0;
+                const increment = target / (duration / 16);
+                const isFloat = target % 1 !== 0;
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= target) {
+                        clearInterval(timer);
+                        element.innerText = isFloat ? target.toFixed(1) : target;
+                    } else {
+                        element.innerText = isFloat ? start.toFixed(1) : Math.floor(start);
+                    }
+                }, 16);
+            };
+    
+            let counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseFloat(entry.target.getAttribute('data-target'));
+                        countUp(entry.target, target, 2000);
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
             });
+    
+            function initAnimations(page) {
+                page.querySelectorAll('.animate-on-scroll').forEach(el => {
+                    el.classList.remove('visible');
+                    scrollObserver.observe(el);
+                });
+                page.querySelectorAll('.counter').forEach(el => {
+                    el.innerText = '0';
+                    counterObserver.observe(el);
+                });
+            }
+    
+            /* --- SPA Router --- */
+            function navigate() {
+                let hash = window.location.hash || '#home';
+                if (hash === '#') hash = '#home';
+                
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                const targetPage = document.querySelector(hash) || document.getElementById('home');
+                targetPage.classList.add('active');
+                
+                window.scrollTo({ top: 0, behavior: 'instant' });
+    
+                document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+                    if (link.getAttribute('href') === hash) link.classList.add('text-primary', 'fw-bold');
+                    else link.classList.remove('text-primary', 'fw-bold');
+                });
+    
+                if (document.querySelector('.mobile-menu').classList.contains('open')) {
+                    toggleMenu();
+                }
+    
+                initAnimations(targetPage);
+            }
+    
+            window.addEventListener('hashchange', navigate);
+    
+            /* --- Header & Mobile Menu --- */
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
+            });
+    
+            const menuBtn = document.querySelector('.mobile-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const overlay = document.querySelector('.overlay');
+            function toggleMenu() {
+                const isOpen = mobileMenu.classList.contains('open');
+                mobileMenu.classList.toggle('open');
+                overlay.classList.toggle('open');
+                document.body.style.overflow = !isOpen ? 'hidden' : '';
+                menuBtn.setAttribute('aria-expanded', !isOpen);
+            }
+            if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+            if (overlay) overlay.addEventListener('click', toggleMenu);
+    
+            /* --- FAQ Accordion --- */
+            document.querySelectorAll('.faq-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const parent = btn.closest('.faq-item');
+                    const wasActive = parent.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                        item.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+                    });
+                    if (!wasActive) {
+                        parent.classList.add('active');
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+    
+            /* --- Modals --- */
+            const openModalBtns = document.querySelectorAll('[data-modal]');
+            const modals = document.querySelectorAll('.modal');
+            const closeBtns = document.querySelectorAll('.modal-close, .modal-backdrop');
+            let lastFocusedElement;
+            function openModal(modalId) {
+                const target = document.getElementById(modalId);
+                if (target) {
+                    lastFocusedElement = document.activeElement;
+                    target.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                    const firstInput = target.querySelector('input, select, textarea, button');
+                    if (firstInput) setTimeout(() => firstInput.focus(), 100);
+                }
+            }
+            function closeModal() {
+                modals.forEach(m => m.classList.remove('open'));
+                document.body.style.overflow = '';
+                if (lastFocusedElement) lastFocusedElement.focus();
+            }
+            openModalBtns.forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); openModal(btn.getAttribute('data-modal')); }));
+            closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', (e) => { e.preventDefault(); alert('Спасибо! Ваша заявка успешно отправлена (UI Mock).'); closeModal(); form.reset(); });
+            });
+    
+            /* --- Tutors Filter --- */
+            const filterInputs = document.querySelectorAll('.filters-bar input[type="checkbox"]');
+            const tutorCards = document.querySelectorAll('#tutors .tutor-card');
+            const resetBtn = document.getElementById('reset-filters');
+            const resultsCount = document.getElementById('results-count');
+            function filterTutors() {
+                const selectedSubjects = Array.from(document.querySelectorAll('input[name="subject"]:checked')).map(cb => cb.value);
+                let count = 0;
+                tutorCards.forEach(card => {
+                    const subjectsAttr = card.getAttribute('data-subjects');
+                    if(!subjectsAttr) return;
+                    const subjects = subjectsAttr.split(',');
+                    const matchesSubject = selectedSubjects.length === 0 || selectedSubjects.some(sub => subjects.includes(sub));
+                    if (matchesSubject) { card.style.display = 'flex'; count++; } else { card.style.display = 'none'; }
+                });
+                if (resultsCount) resultsCount.innerText = `Найдено ${count} репетиторов`;
+            }
+            if(filterInputs.length) filterInputs.forEach(input => input.addEventListener('change', filterTutors));
+            if(resetBtn) resetBtn.addEventListener('click', () => { filterInputs.forEach(input => input.checked = false); filterTutors(); });
+    
+            /* --- Init Page --- */
+            navigate();
         });
     </script>
-
 </body>
 </html>
